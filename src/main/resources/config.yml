@@ -1,0 +1,31 @@
+# This is the display information
+# The title is what will be shown above the physical drop
+# The dropped item will look like the display item
+display:
+  shard:
+    title: '&A&L%amt% Shard(s)'
+    item: PRISMARINE_SHARD
+  soul:
+    title: '&C&L%amt% Soul Crystal(s)'
+    item: NETHER_STAR
+
+# Enter the information for the soul crystal here
+soul:
+  item:
+    name: '&C&LSoul Crystal'
+    type: NETHER_STAR
+    lore:
+      - '&7This is used for enchanting'
+
+# These are the chances (as a percentage) and the amounts (in a range from min-max)
+# for drops for each type of block> Please use block types from: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+drops:
+  STONE:
+    soul:
+      chance: 50
+      min: 1
+      max: 3
+    shard:
+      chance: 50
+      min: 1
+      max: 3
