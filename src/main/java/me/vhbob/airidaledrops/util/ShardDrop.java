@@ -5,6 +5,7 @@ import me.vhbob.airidaledrops.AiridaleDrops;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -37,6 +38,11 @@ public class ShardDrop extends Drop {
     public void giveReward(Player player) {
         super.giveReward(player);
         TokenManagerPlugin.getInstance().addTokens(player, amt);
-        player.sendMessage(ChatColor.GREEN + "You picked up " + amt + " shards!");
+        player.sendMessage(ChatColor.GREEN + "You picked up " + amt + " shard(s)!");
+        String soundName = AiridaleDrops.getPlugin().getConfig().getString("display.soul.pickup_sound");
+        if (!soundName.equalsIgnoreCase("none")) {
+            Sound sound = Sound.valueOf(soundName);
+            player.getLocation().getWorld().playSound(player.getLocation(), sound, 1, 1);
+        }
     }
 }

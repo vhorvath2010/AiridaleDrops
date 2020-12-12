@@ -5,6 +5,7 @@ import me.vhbob.airidaledrops.AiridaleDrops;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -41,7 +42,6 @@ public class SoulDrop extends Drop {
     @Override
     public void giveReward(Player player) {
         super.giveReward(player);
-        player.sendMessage(ChatColor.GREEN + "You picked up " + amt + " souls!");
         // Create soul item
         Material soulMat = Material.valueOf(config.getString("soul.item.type"));
         ItemStack soul = new ItemStack(soulMat, 64);
@@ -61,6 +61,12 @@ public class SoulDrop extends Drop {
         }
         soul.setAmount(amt);
         player.getInventory().addItem(soul);
+        String soundName = config.getString("display.soul.pickup_sound");
+        if (!soundName.equalsIgnoreCase("none")) {
+            Sound sound = Sound.valueOf(soundName);
+            player.getLocation().getWorld().playSound(player.getLocation(), sound, 1, 1);
+        }
+        player.sendMessage(ChatColor.GREEN + "You picked up " + amt + " soul(s)!");
     }
 
 }

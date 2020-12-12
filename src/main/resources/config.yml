@@ -1,13 +1,18 @@
 # This is the display information
 # The title is what will be shown above the physical drop
 # The dropped item will look like the display item
+# Use items from: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+# Use sounds from: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+# Set pickup_sound to none for no sound to play on pickup
 display:
   shard:
     title: '&A&L%amt% Shard(s)'
     item: PRISMARINE_SHARD
+    pickup_sound: ENTITY_PLAYER_LEVELUP
   soul:
     title: '&C&L%amt% Soul Crystal(s)'
     item: NETHER_STAR
+    pickup_sound: ENTITY_PLAYER_LEVELUP
 
 # This is the amount of time (in seconds) the drop will only be able to be picked up by the player who broke the block
 safe_period: 2
@@ -21,7 +26,7 @@ soul:
       - '&7This is used for enchanting'
 
 # These are the chances (as a percentage) and the amounts (in a range from min-max)
-# for drops for each type of block> Please use block types from: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+# for drops for each type of block. Please use valid block types from the materials list above
 drops:
   STONE:
     soul:
