@@ -38,7 +38,8 @@ public class ShardDrop extends Drop {
     public void giveReward(Player player) {
         super.giveReward(player);
         TokenManagerPlugin.getInstance().addTokens(player, amt);
-        player.sendMessage(ChatColor.GREEN + "You picked up " + amt + " shard(s)!");
+        String msg = AiridaleDrops.getPlugin().getConfig().getString("messages.shard").replace("%amt%", amt + "");
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
         String soundName = AiridaleDrops.getPlugin().getConfig().getString("display.soul.pickup_sound");
         if (!soundName.equalsIgnoreCase("none")) {
             Sound sound = Sound.valueOf(soundName);

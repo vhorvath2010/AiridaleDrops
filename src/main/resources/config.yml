@@ -17,6 +17,11 @@ display:
 # This is the amount of time (in seconds) the drop will only be able to be picked up by the player who broke the block
 safe_period: 2
 
+# These are the messages that are sent upon pickup. use %amt% for the amounts
+messages:
+  soul: '&7&L>> You picked up &C&L%amt% Souls'
+  shard: '&7&L>> You picked up &A&L%amt% Shards'
+
 # Enter the information for the soul crystal here
 soul:
   item:

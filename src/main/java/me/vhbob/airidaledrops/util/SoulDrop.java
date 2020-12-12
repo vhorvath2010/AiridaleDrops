@@ -66,7 +66,8 @@ public class SoulDrop extends Drop {
             Sound sound = Sound.valueOf(soundName);
             player.getLocation().getWorld().playSound(player.getLocation(), sound, 1, 1);
         }
-        player.sendMessage(ChatColor.GREEN + "You picked up " + amt + " soul(s)!");
+        String msg = config.getString("messages.soul").replace("%amt%", amt + "");
+        player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
     }
 
 }

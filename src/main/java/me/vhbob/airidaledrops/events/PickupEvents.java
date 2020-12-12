@@ -22,18 +22,23 @@ public class PickupEvents implements Listener {
     @EventHandler
     public void onPickup(EntityPickupItemEvent e) {
         // Do drop procedure if this is a Airidale Drop
+        Drop airidaleDrop = null;
         for (Drop drop : AiridaleDrops.getPlugin().getActiveDrops()) {
             if (drop.getDrop().equals(e.getItem())) {
-                // Stop if safe period
-                if ((drop.isSafe() && !drop.getOwner().equals(e.getEntity())) || !(e.getEntity() instanceof Player)) {
-                    e.setCancelled(true);
-                    return;
-                }
-                // Allow drop to occur
-                e.getItem().remove();
-                e.setCancelled(true);
-                drop.giveReward((Player) e.getEntity());
+                airidaleDrop = drop;
+                break;
             }
+        }
+        if (airidaleDrop != null) {
+            // Stop if safe period
+            if ((airidaleDrop.isSafe() && !airidaleDrop.getOwner().equals(e.getEntity())) || !(e.getEntity() instanceof Player)) {
+                e.setCancelled(true);
+                return;
+            }
+            // Allow drop to occur
+            e.getItem().remove();
+            e.setCancelled(true);
+            airidaleDrop.giveReward((Player) e.getEntity());
         }
     }
 
