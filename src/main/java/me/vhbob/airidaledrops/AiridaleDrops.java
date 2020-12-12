@@ -1,6 +1,7 @@
 package me.vhbob.airidaledrops;
 
 import me.vhbob.airidaledrops.events.DropEvent;
+import me.vhbob.airidaledrops.events.PickupEvents;
 import me.vhbob.airidaledrops.util.Drop;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,6 +19,7 @@ public class AiridaleDrops extends JavaPlugin {
         saveDefaultConfig();
         activeDrops = new ArrayList<>();
         Bukkit.getPluginManager().registerEvents(new DropEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new PickupEvents(), this);
     }
 
     public static AiridaleDrops getPlugin() {

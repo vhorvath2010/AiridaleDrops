@@ -3,3 +3,5 @@ author: Vhbob
 version: 1.0.0
 description: A shards and souls drops plugin for AiridaleMC
 main: me.vhbob.airidaledrops.AiridaleDrops
+depend:
+  - TokenManager

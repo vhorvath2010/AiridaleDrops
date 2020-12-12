@@ -20,8 +20,7 @@ public abstract class Drop {
 
     public void generateDrop(Location loc, ItemStack displayItem, String name) {
         // Generate armor stand
-        drop = (Item) loc.getWorld().spawnEntity(loc, EntityType.DROPPED_ITEM);
-        drop.setItemStack(displayItem);
+        drop = loc.getWorld().dropItem(loc, displayItem);
         drop.setCustomName(name);
         drop.setCustomNameVisible(true);
     }
@@ -34,4 +33,7 @@ public abstract class Drop {
         return safe;
     }
 
+    public Player getOwner() {
+        return owner;
+    }
 }

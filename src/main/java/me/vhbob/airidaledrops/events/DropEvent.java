@@ -24,7 +24,7 @@ public class DropEvent implements Listener {
             int max = config.getInt("drops." + type + ".soul.max");
             if (Math.random() * 100 <= chance) {
                 int amt = randomBetween(min, max);
-                SoulDrop drop = new SoulDrop(e.getBlock().getLocation(), amt, e.getPlayer());
+                SoulDrop drop = new SoulDrop(e.getBlock().getLocation().add(.5,.5,.5), amt, e.getPlayer());
             }
         }
         // Attempt to drop shards
@@ -34,14 +34,14 @@ public class DropEvent implements Listener {
             int max = config.getInt("drops." + type + ".shard.max");
             if (Math.random() * 100 <= chance) {
                 int amt = randomBetween(min, max);
-                ShardDrop drop = new ShardDrop(e.getBlock().getLocation(), amt, e.getPlayer());
+                ShardDrop drop = new ShardDrop(e.getBlock().getLocation().add(.5,.5,.5), amt, e.getPlayer());
             }
         }
     }
 
     private int randomBetween(int min, int max) {
         Random r = new Random();
-        return r.nextInt(max - min) + min;
+        return r.nextInt(max - (min - 1)) + min;
     }
 
 }

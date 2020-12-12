@@ -9,6 +9,9 @@ display:
     title: '&C&L%amt% Soul Crystal(s)'
     item: NETHER_STAR
 
+# This is the amount of time (in seconds) the drop will only be able to be picked up by the player who broke the block
+safe_period: 2
+
 # Enter the information for the soul crystal here
 soul:
   item:

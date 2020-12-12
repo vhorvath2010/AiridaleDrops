@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,12 @@ public class SoulDrop extends Drop {
         this.amt = amt;
         this.owner = owner;
         this.safe = true;
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                safe = false;
+            }
+        }.runTaskLater(AiridaleDrops.getPlugin(), (long) (20 * AiridaleDrops.getPlugin().getConfig().getDouble("safe_period")));
         // Create display
         ItemStack displayItem = new ItemStack(displayMaterial, 1);
         String title = displayTitle.replace("%amt%", amt + "");
