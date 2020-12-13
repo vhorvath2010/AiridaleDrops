@@ -6,12 +6,16 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,20 +44,12 @@ public class SoulDrop extends Drop {
     }
 
     @Override
-    public void giveReward(Player player) {
+    public void giveReward(Player player) throws IOException, InvalidConfigurationException {
         super.giveReward(player);
         // Create soul item
-        Material soulMat = Material.valueOf(config.getString("soul.item.type"));
-        ItemStack soul = new ItemStack(soulMat, 64);
-        ItemMeta soulM = soul.getItemMeta();
-        soulM.setDisplayName(ChatColor.translateAlternateColorCodes('&', config.getString("soul.item.name")));
-        List<String> configLore = config.getStringList("soul.item.lore");
-        ArrayList<String> lore = new ArrayList<>();
-        for (String line : configLore) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', line));
-        }
-        soulM.setLore(lore);
-        soul.setItemMeta(soulM);
+        FileConfiguration soulConfig = new YamlConfiguration();
+        soulConfig.load(new File(AiridaleDrops.getPlugin().getDataFolder(), "soul.yml"));
+        ItemStack soul = (ItemStack) soulConfig.get("soul_item");
         // Give soul item
         while (amt > 64) {
             amt -= 64;

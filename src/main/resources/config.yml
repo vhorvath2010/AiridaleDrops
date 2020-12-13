@@ -22,14 +22,6 @@ messages:
   soul: '&7&L>> You picked up &C&L%amt% Souls'
   shard: '&7&L>> You picked up &A&L%amt% Shards'
 
-# Enter the information for the soul crystal here
-soul:
-  item:
-    name: '&C&LSoul Crystal'
-    type: NETHER_STAR
-    lore:
-      - '&7This is used for enchanting'
-
 # These are the chances (as a percentage) and the amounts (in a range from min-max)
 # for drops for each type of block. Please use valid block types from the materials list above
 drops:

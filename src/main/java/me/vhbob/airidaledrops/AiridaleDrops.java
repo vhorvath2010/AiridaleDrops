@@ -1,5 +1,6 @@
 package me.vhbob.airidaledrops;
 
+import me.vhbob.airidaledrops.commands.SetSoul;
 import me.vhbob.airidaledrops.events.DropEvent;
 import me.vhbob.airidaledrops.events.PickupEvents;
 import me.vhbob.airidaledrops.util.Drop;
@@ -20,6 +21,7 @@ public class AiridaleDrops extends JavaPlugin {
         activeDrops = new ArrayList<>();
         Bukkit.getPluginManager().registerEvents(new DropEvent(), this);
         Bukkit.getPluginManager().registerEvents(new PickupEvents(), this);
+        getCommand("SetSoul").setExecutor(new SetSoul());
     }
 
     public static AiridaleDrops getPlugin() {

@@ -2,10 +2,13 @@ package me.vhbob.airidaledrops.util;
 
 import me.vhbob.airidaledrops.AiridaleDrops;
 import org.bukkit.Location;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.io.IOException;
 
 public abstract class Drop {
 
@@ -14,7 +17,7 @@ public abstract class Drop {
     boolean safe;
     Player owner;
 
-    public void giveReward(Player player) {
+    public void giveReward(Player player) throws IOException, InvalidConfigurationException {
         AiridaleDrops.getPlugin().getActiveDrops().remove(this);
     }
 

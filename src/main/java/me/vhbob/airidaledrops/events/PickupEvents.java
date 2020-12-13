@@ -2,11 +2,14 @@ package me.vhbob.airidaledrops.events;
 
 import me.vhbob.airidaledrops.AiridaleDrops;
 import me.vhbob.airidaledrops.util.Drop;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.ItemMergeEvent;
+
+import java.io.IOException;
 
 public class PickupEvents implements Listener {
 
@@ -20,7 +23,7 @@ public class PickupEvents implements Listener {
     }
 
     @EventHandler
-    public void onPickup(EntityPickupItemEvent e) {
+    public void onPickup(EntityPickupItemEvent e) throws IOException, InvalidConfigurationException {
         // Do drop procedure if this is a Airidale Drop
         Drop airidaleDrop = null;
         for (Drop drop : AiridaleDrops.getPlugin().getActiveDrops()) {

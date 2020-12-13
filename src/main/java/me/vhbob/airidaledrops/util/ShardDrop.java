@@ -6,9 +6,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.io.IOException;
 
 public class ShardDrop extends Drop {
 
@@ -35,7 +38,7 @@ public class ShardDrop extends Drop {
     }
 
     @Override
-    public void giveReward(Player player) {
+    public void giveReward(Player player) throws IOException, InvalidConfigurationException {
         super.giveReward(player);
         TokenManagerPlugin.getInstance().addTokens(player, amt);
         String msg = AiridaleDrops.getPlugin().getConfig().getString("messages.shard").replace("%amt%", amt + "");
