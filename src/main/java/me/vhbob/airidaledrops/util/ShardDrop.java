@@ -19,16 +19,9 @@ public class ShardDrop extends Drop {
     private static final String displayTitle = ChatColor.translateAlternateColorCodes('&',
             AiridaleDrops.getPlugin().getConfig().getString("display.shard.title"));
 
-    public ShardDrop(Location loc, int amt, Player owner) {
+    public ShardDrop(Location loc, int amt, Player owner) throws IOException, InvalidConfigurationException {
         this.amt = amt;
         this.owner = owner;
-        this.safe = true;
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                safe = false;
-            }
-        }.runTaskLater(AiridaleDrops.getPlugin(), (long) (20 * AiridaleDrops.getPlugin().getConfig().getDouble("safe_period")));
         // Create display
         ItemStack displayItem = new ItemStack(displayMaterial, 1);
         String title = displayTitle.replace("%amt%", amt + "");

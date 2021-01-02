@@ -1,8 +1,9 @@
 name: AiridaleDrops
 author: Vhbob
-version: 1.0.1
+version: 1.1.0
 description: A shards and souls drops plugin for AiridaleMC
 main: me.vhbob.airidaledrops.AiridaleDrops
+api-version: 1.16
 depend:
   - TokenManager
 commands:

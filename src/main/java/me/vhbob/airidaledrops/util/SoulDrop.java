@@ -25,16 +25,9 @@ public class SoulDrop extends Drop {
     private static final Material displayMaterial = Material.valueOf(config.getString("display.soul.item"));
     private static final String displayTitle = ChatColor.translateAlternateColorCodes('&', config.getString("display.soul.title"));
 
-    public SoulDrop(Location loc, int amt, Player owner) {
+    public SoulDrop(Location loc, int amt, Player owner) throws IOException, InvalidConfigurationException {
         this.amt = amt;
         this.owner = owner;
-        this.safe = true;
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                safe = false;
-            }
-        }.runTaskLater(AiridaleDrops.getPlugin(), (long) (20 * AiridaleDrops.getPlugin().getConfig().getDouble("safe_period")));
         // Create display
         ItemStack displayItem = new ItemStack(displayMaterial, 1);
         String title = displayTitle.replace("%amt%", amt + "");

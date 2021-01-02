@@ -3,11 +3,13 @@ package me.vhbob.airidaledrops.events;
 import me.vhbob.airidaledrops.AiridaleDrops;
 import me.vhbob.airidaledrops.util.ShardDrop;
 import me.vhbob.airidaledrops.util.SoulDrop;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class DropEvent implements Listener {
@@ -15,7 +17,7 @@ public class DropEvent implements Listener {
     private static final FileConfiguration config = AiridaleDrops.getPlugin().getConfig();
 
     @EventHandler
-    public void onBreak(BlockBreakEvent e) {
+    public void onBreak(BlockBreakEvent e) throws IOException, InvalidConfigurationException {
         // Attempt to drop souls
         String type = e.getBlock().getType().toString();
         if (config.contains("drops." + type + ".soul.chance")) {
