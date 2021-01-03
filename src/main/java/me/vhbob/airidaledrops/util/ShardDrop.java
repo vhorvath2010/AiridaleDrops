@@ -22,12 +22,7 @@ public class ShardDrop extends Drop {
     public ShardDrop(Location loc, int amt, Player owner) throws IOException, InvalidConfigurationException {
         this.amt = amt;
         this.owner = owner;
-        // Create display
-        ItemStack displayItem = new ItemStack(displayMaterial, 1);
-        String title = displayTitle.replace("%amt%", amt + "");
-        generateDrop(loc, displayItem, title);
-        // Register drop
-        AiridaleDrops.getPlugin().getActiveDrops().add(this);
+        giveReward(owner);
     }
 
     @Override
