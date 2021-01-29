@@ -27,13 +27,22 @@ public abstract class Drop {
         drop.setCustomName(name);
         drop.setCustomNameVisible(true);
         // Schedule removal
+        scheduleRemoval();
+        this.giveReward(owner);
+    }
+
+    private void scheduleRemoval() {
         new BukkitRunnable() {
             @Override
             public void run() {
-                drop.remove();
+                // Remove drop if player's inventory not full
+                if (owner.getInventory().firstEmpty() != -1) {
+                    drop.remove();
+                } else {
+                    scheduleRemoval();
+                }
             }
         }.runTaskLater(AiridaleDrops.getPlugin(), (long) (20 * AiridaleDrops.getPlugin().getConfig().getDouble("item_period")));
-        this.giveReward(owner);
     }
 
     public Item getDrop() {
