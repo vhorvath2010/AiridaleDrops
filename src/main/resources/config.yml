@@ -14,7 +14,7 @@ display:
     item: NETHER_STAR
     pickup_sound: ENTITY_PLAYER_LEVELUP
 
-# This is the amount of time (in seconds) the drop will only be able to be picked up by the player who broke the block
+# This is the amount of time (in seconds) the drop will remain on the ground
 safe_period: 4
 
 # These are the messages that are sent upon pickup. use %amt% for the amounts

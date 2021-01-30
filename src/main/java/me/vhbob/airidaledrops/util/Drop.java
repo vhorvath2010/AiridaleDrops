@@ -3,13 +3,17 @@ package me.vhbob.airidaledrops.util;
 import me.vhbob.airidaledrops.AiridaleDrops;
 import org.bukkit.Location;
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 public abstract class Drop {
 
@@ -28,21 +32,45 @@ public abstract class Drop {
         drop.setCustomNameVisible(true);
         // Schedule removal
         scheduleRemoval();
-        this.giveReward(owner);
     }
 
     private void scheduleRemoval() {
+        Drop dropType = this;
         new BukkitRunnable() {
             @Override
             public void run() {
-                // Remove drop if player's inventory not full
-                if (owner.getInventory().firstEmpty() != -1) {
-                    drop.remove();
+                // Check for shard drop
+                if (dropType instanceof SoulDrop) {
+                    // Create soul item
+                    FileConfiguration soulConfig = new YamlConfiguration();
+                    try {
+                        soulConfig.load(new File(AiridaleDrops.getPlugin().getDataFolder(), "soul.yml"));
+                    } catch (IOException | InvalidConfigurationException e) {
+                        e.printStackTrace();
+                    }
+                    ItemStack soul = (ItemStack) soulConfig.get("soul_item");
+                    // Remove drop if player's inventory not full
+                    int unfilled = 0;
+                    for (ItemStack item : owner.getInventory().getStorageContents()) {
+                        if (item != null && item.isSimilar(soul)) {
+                            unfilled += item.getMaxStackSize() - item.getAmount();
+                        }
+                    }
+                    if (owner.getInventory().firstEmpty() != -1 || unfilled >= dropType.amt) {
+                        drop.remove();
+                        try {
+                            dropType.giveReward(dropType.getOwner());
+                        } catch (IOException | InvalidConfigurationException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        scheduleRemoval();
+                    }
                 } else {
-                    scheduleRemoval();
+                    drop.remove();
                 }
             }
-        }.runTaskLater(AiridaleDrops.getPlugin(), (long) (20 * AiridaleDrops.getPlugin().getConfig().getDouble("item_period")));
+        }.runTaskLater(AiridaleDrops.getPlugin(), (long) (20 * AiridaleDrops.getPlugin().getConfig().getDouble("safe_period")));
     }
 
     public Item getDrop() {
