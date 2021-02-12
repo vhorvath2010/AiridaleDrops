@@ -20,6 +20,9 @@ public class DropEvent implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) throws IOException, InvalidConfigurationException {
+        if (e.isCancelled()) {
+            return;
+        }
         // Attempt to drop souls
         String type = e.getBlock().getType().toString();
         // Calculate fortune effect
