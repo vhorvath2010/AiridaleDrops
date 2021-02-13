@@ -1,5 +1,10 @@
 package me.vhbob.airidaledrops.events;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
+import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
 import me.vhbob.airidaledrops.AiridaleDrops;
 import me.vhbob.airidaledrops.util.ShardDrop;
 import me.vhbob.airidaledrops.util.SoulDrop;
@@ -20,7 +25,12 @@ public class DropEvent implements Listener {
 
     @EventHandler
     public void onBreak(BlockBreakEvent e) throws IOException, InvalidConfigurationException {
-        if (e.isCancelled()) {
+        // Check for Flag
+        RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
+        boolean flagEnabled = query.testState(BukkitAdapter.adapt(e.getBlock().getLocation()),
+                WorldGuardPlugin.inst().wrapPlayer(e.getPlayer()),
+                AiridaleDrops.getPlugin().DROPS_ENABLED_FLAG);
+        if (!flagEnabled || e.isCancelled()) {
             return;
         }
         // Attempt to drop souls
